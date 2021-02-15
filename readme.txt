@@ -1,4 +1,4 @@
-=== Disable WordPress Block Editor Fullscreen Mode ===
+=== Wedepohl Engineering Disable Comments ===
 Contributors: mwedepohl
 Donate link: https://paypal.me/martinwedepohl
 Tags: comments, disable
