@@ -11,7 +11,7 @@
  * Plugin Name:       Wedepohl Engineering Disable Comments
  * Plugin URI:        https://github.com/martin-wedepohl/we-disable-coments
  * Description:       Disable Comments from administration menus and post/page editors.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 4.9
  * Requires PHP:      5.6
  * Author:            Martin Wedepohl
