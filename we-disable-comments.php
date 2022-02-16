@@ -1,4 +1,4 @@
-<?php
+<?php    // phpcs:ignore
 /**
  * Disable Comments
  *
@@ -11,7 +11,7 @@
  * Plugin Name:       Wedepohl Engineering Disable Comments
  * Plugin URI:        https://github.com/martin-wedepohl/we-disable-coments
  * Description:       Disable Comments from administration menus and post/page editors.
- * Version:           1.0.1
+ * Version:           1.0.2
  * Requires at least: 4.9
  * Requires PHP:      5.6
  * Author:            Martin Wedepohl
@@ -57,17 +57,18 @@ if ( ! class_exists( 'WEDisableComments' ) ) {
 		 *
 		 * @since 1.0.0
 		 */
-		public static function init() {
+		public function init() {
 
 			global $wp_version;
 
-			add_action( 'admin_menu', array( 'WEDisableComments', 'disable_comments_admin_menu' ) );
-			add_action( 'admin_init', array( 'WEDisableComments', 'comments_admin_menu_redirect' ) );
-			add_action( 'admin_init', array( 'WEDisableComments', 'disable_comments_dashboard' ) );
-			add_action( 'admin_init', array( 'WEDisableComments', 'disable_comments_admin_bar' ) );
+			add_action( 'admin_menu', array( $this, 'disable_comments_admin_menu' ) );
+			add_action( 'admin_init', array( $this, 'comments_admin_menu_redirect' ) );
+			add_action( 'admin_init', array( $this, 'disable_comments_dashboard' ) );
+			add_action( 'admin_init', array( $this, 'disable_comments_admin_bar' ) );
+			add_action( 'admin_init', array( $this, 'remove_columns' ) );
 
 			if ( version_compare( $wp_version, '5.0', '>=' ) ) {
-				add_action( 'enqueue_block_editor_assets', array( 'WEDisableComments', 'remove_block_discussions' ) );
+				add_action( 'enqueue_block_editor_assets', array( $this, 'remove_block_discussions' ) );
 			}
 
 		}
@@ -81,8 +82,8 @@ if ( ! class_exists( 'WEDisableComments' ) ) {
 			remove_submenu_page( 'options-general.php', 'options-discussion.php' );
 			remove_meta_box( 'commentstatusdiv', 'post', 'normal' );
 			remove_meta_box( 'commentstatusdiv', 'page', 'normal' );
-			remove_meta_box( 'commentsdiv', 'post', 'normal' ); 
-			remove_meta_box( 'commentsdiv', 'page', 'normal' ); 
+			remove_meta_box( 'commentsdiv', 'post', 'normal' );
+			remove_meta_box( 'commentsdiv', 'page', 'normal' );
 
 		}
 
@@ -132,8 +133,29 @@ if ( ! class_exists( 'WEDisableComments' ) ) {
 
 		}
 
+		/**
+		 * Remove the comments column.
+		 */
+		public function remove_comments_column( $columns ) {
+
+			unset( $columns['comments'] );
+			return $columns;
+
+		}
+
+		/**
+		 * Remove columns by setting filters on the specific columns.
+		 */
+		public function remove_columns() {
+
+			add_filter( 'manage_posts_columns', array( $this, 'remove_comments_column' ) );
+			add_filter( 'manage_pages_columns', array( $this, 'remove_comments_column' ) );
+
+		}
+
 	}
 
-	WEDisableComments::init();
+	$wedc = new WEDisableComments();
+	$wedc->init();
 
 }

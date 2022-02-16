@@ -3,8 +3,8 @@ Contributors: mwedepohl
 Donate link: https://paypal.me/martinwedepohl
 Tags: comments, disable
 Requires at least: 4.9
-Tested up to: 5.8
-Stable tag: 1.0.1
+Tested up to: 5.9
+Stable tag: 1.0.2
 Requires PHP: 5.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -49,6 +49,12 @@ It should as WordPress specific calls won't be made on ClassicPress
 3. I will endevor to resolve issues as soon as time permits
 
 == Changelog ==
+
+= 1.0.2 =
+Feb 15, 2022
+* Tested with WordPress Version 5.9
+* Removed static functions and used $this
+* Remove the comments column for posts and pages in the backend
 
 = 1.0.1 =
 Aug 1, 2021
